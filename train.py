@@ -10,6 +10,7 @@ from tqdm import tqdm
 from model.unet import UNet, BasicUNet, GUNet, RUNet
 from collections import deque
 from core.display import display_4_images
+from core.utils import beta_linear
 
 # Tensorboard
 from torch.utils.tensorboard import SummaryWriter
@@ -52,7 +53,7 @@ def train(batch_size: int, device: str, model: nn.Module, dataset, num_epochs: i
 
     beta_min = 1e-4
     beta_max = 0.02
-    betas = torch.linspace(beta_min, beta_max, max_time_steps, device=device)
+    betas = beta_linear(beta_min, beta_max, max_time_steps, device)
     sqrt_betas = torch.sqrt(betas)
     alphas = 1 - betas
     sqrt_alphas = torch.sqrt(alphas)
