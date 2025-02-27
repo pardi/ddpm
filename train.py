@@ -78,7 +78,7 @@ def train(batch_size: int, device: str, model: nn.Module, dataset, num_epochs: i
 
     if validate_model == True:
         # Load parameter
-        model.load_state_dict(torch.load('./best.pth', weights_only=True))
+        model.load_state_dict(torch.load('./weights/best.pth', weights_only=True))
     else:
         board_writer = SummaryWriter()
 
@@ -108,11 +108,11 @@ def train(batch_size: int, device: str, model: nn.Module, dataset, num_epochs: i
                 if loss.item() < best_loss:
                     best_loss = loss.item()
                     # save model
-                    torch.save(model.state_dict(), './best.pth')
+                    torch.save(model.state_dict(), './weights/best.pth')
 
             logging.info('Epoch: {} Loss: {}'.format(epoch, np.mean(loss_buffer)))
         
-        torch.save(model.state_dict(), './last.pth')
+        torch.save(model.state_dict(), './weights/last.pth')
 
     ## ----------------------------
     #  Test sampling
