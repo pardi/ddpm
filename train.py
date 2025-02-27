@@ -8,10 +8,10 @@ import os
 import matplotlib.pyplot as plt
 import numpy as np
 from tqdm import tqdm
-from unet import UNet, BasicUNet, GUNet, RUNet
+from model.unet import UNet, BasicUNet, GUNet, RUNet
 from collections import deque
 
-# tensorboard
+# Tensorboard
 from torch.utils.tensorboard import SummaryWriter
 
 load = False
@@ -57,7 +57,7 @@ def sample(model, max_time_steps, alphas, betas, alphas_hat, device):
     return x_t
 
 
-def main(verbose=True):
+def train(verbose=True):
 
     transf = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
@@ -156,12 +156,14 @@ def main(verbose=True):
 
         
         torch.save(model.state_dict(), './last.pth')
+
     ## ----------------------------
     #  Test sampling
     ## ----------------------------
 
     # Sample from the model
     x_samples = np.zeros((4, 1, 32, 32))
+
     for idx, t in enumerate(range(4)):
         x_sample = sample(model, max_time_steps, alphas, betas, alphas_hat, device).cpu().detach()
         x_sample = (x_sample.cpu().detach().numpy() * 0.5 + 0.5).clip(0, 1) 
@@ -170,6 +172,5 @@ def main(verbose=True):
     display_4_images(x_samples, torch.tensor([0, 1, 2, 3]))    
 
 
-if __name__ == '__main__':
-    
-    main()
+if __name__ == '__main__':    
+    train()
