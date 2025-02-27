@@ -59,6 +59,7 @@ def sample(model, max_time_steps, alphas, betas, alphas_hat, device):
 
 def train(verbose=True):
 
+    return 
     transf = torchvision.transforms.Compose([
         torchvision.transforms.ToTensor(),
         torchvision.transforms.Normalize((0.5,), (0.5,))
