@@ -72,7 +72,7 @@ def train(batch_size: int, device: str, model: nn.Module, dataset, num_epochs: i
     criterion = nn.MSELoss() 
 
     # Vector of losses
-    loss_buffer = deque(maxlen=batch_size)
+    loss_buffer = deque(maxlen=batch_size * len(train_loader))
 
     best_loss = 10000
 
