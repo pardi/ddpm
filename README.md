@@ -13,5 +13,7 @@ This is an implementation of the DDPM algorithm for generating images.
 
 ## Results
 ![ddpm image results](.imgs/ddpm.png)
+### Training
+![ddpm image results](.imgs/training.png)
 
 
